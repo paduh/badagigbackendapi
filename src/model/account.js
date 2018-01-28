@@ -5,8 +5,8 @@ import passportLocalMongoose from 'passport-local-mongoose';
 const Account = new Schema({
   email: String,
   password: String,
-  facebookId: String,
-  googleId: String
+  facebookid: String,
+  googleid: String
 });
 
 Account.plugin(passportLocalMongoose);

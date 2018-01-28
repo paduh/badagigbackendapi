@@ -10,8 +10,8 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const requestSchema = new Schema({
   subcategoryid: {type: ObjectId, ref: 'Subcategory'},
-  badagigeeid: {type: ObjectId, ref: 'User'},
-  badagigerid: {type: ObjectId, ref: 'User',},
+  badagigeeid: { type: ObjectId, ref: 'User' },
+  badagigerid: { type: ObjectId, ref: 'User' },
   requestdate: {type: Date, default: Date.now},
   deliverydays: String, default: "",
   description: String, default: "",

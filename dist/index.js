@@ -55,7 +55,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var LocalStrategy = require('passport-local').Strategy;
 //import FacebookTokenStrategy from 'passport-token-facebook';
 
-var GoogleTokenStrategy = require('passport-google-token').Strategy;
+var GoogleTokenStrategy = require('passport-google-oauth20').Strategy;
 var FacebookTokenStrategy = require('passport-facebook-token');
 
 var app = (0, _express2.default)();
@@ -79,7 +79,8 @@ _passport2.default.use(new LocalStrategy({
 //GoogleTokenStrategy
 _passport2.default.use(new GoogleTokenStrategy({
   clientID: _config2.default.googleClientID,
-  clientSecret: _config2.default.googleClientSecret
+  clientSecret: _config2.default.googleClientSecret,
+  callbackURL: "http://localhost:4010/auth/google/callback"
 }, function (accessToken, refreshToken, profile, done) {
   _user2.default.findOne({ googleId: profile.id }, function (err, user) {
     if (err) {
@@ -112,15 +113,14 @@ _passport2.default.use(new FacebookTokenStrategy({
   clientID: _config2.default.facebookClientID,
   clientSecret: _config2.default.facebookClientSecret
 }, function (accessToken, refreshToken, profile, done) {
-  Account.findOne({ facebookId: profile.id }, function (err, user) {
+  _user2.default.findOne({ facebookId: profile.id }, function (err, user) {
     if (err) {
       res.status(409).json({ message: 'An error occured: ' + err.message });
       return done(err, false);
     } else if (!err && user !== null) {
       return done(null, user);
     } else {
-      //ccount =  Account({facebookId: })
-      user = new _user2.default({ username: profile.email });
+      user = new _user2.default();
       console.log('Profile id ' + profile.id);
       console.log('Profile name ' + profile.name.givenName);
       console.log('Profile email ' + profile.emails[0].value);

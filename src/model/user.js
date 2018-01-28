@@ -6,6 +6,8 @@ const userSchema = new Schema({
   lastname: String, default: "",
   username: String, default: "",
   email: String, default: "",
+  facebookid: String, default: "",
+  googleid: String, default: "",
   phonenumber: Number, default: "",
   profilepicurl: String, default: "",
   availabity: String, default: "",

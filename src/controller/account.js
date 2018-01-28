@@ -65,8 +65,7 @@ export default ({ config, db }) => {
   api.post('/auth/facebook/token', passport.authenticate('facebook-token', {session: false}), (req, res, next) => {
       if (req.user) {
         console.log(`User req ${req.user}`);
-        generateAccessToken;
-        respond;
+
 
         req.token = req.token || {};
         req.token = jwt.sign ({
@@ -86,7 +85,7 @@ export default ({ config, db }) => {
   });
 
   //'/v1/account/google/token'
-  api.post('/google/token', passport.authenticate('google-token'), (req, res) => {
+  api.post('/google/token', passport.authenticate('google', {scope: ['profile']}), (req, res) => {
     if (req.user) {
       console.log('Google token route');
       generateAccessToken, respond;

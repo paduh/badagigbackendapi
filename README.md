@@ -1,8 +1,7 @@
-# mac-chat-api
-Prebuilt api for slack app clone.
+# Badagig Backend Server
 
-This project is the API for creating a slack clone.  No need to understand any of code here.  But if you are interested in taking
-your development skills to the next level, check out our API course.
+
+This project is the API for Badagig Backend Server mobile app.  
 
 ##### How It Works
 
@@ -12,12 +11,12 @@ your development skills to the next level, check out our API course.
 2.  Ensure that you use the middleware function `authenticated` for each of your new routes on any request that must first have an authenticated user
   *  Data that you want made to the public (without a user first loggin in) can omit the `authenticated` middleware
 3.  Currently the express app assumes the database is on mLab using Heroku Deploy button at bottom. You can change the URL of the Mongo database to any location `src/config/index.js`
-4. For a full review on how this api works, checkout our Mac Course on the [Devslopes platforms](https://devslopes.com/platforms)
+
 
 ##### Dependencies
 *  npm - the `package.json` file lists all of the npm dependencies
 
-#### Chat App REST API with ES6 and Express.
+#### Badagig Backend REST API with ES6 and Express.
 
 - ES6 support via [babel](https://babeljs.io)
 - Express is Node.js web application framework via [express](https://github.com/expressjs/express)
@@ -29,7 +28,7 @@ your development skills to the next level, check out our API course.
 Getting Started
 ---------------
 #### Run a local instance
-* Go to `src/config/index.js` 
+* Go to `src/config/index.js`
 * change port to `"port": 3005`
 * change mongoUrl to `"mongoUrl": "mongodb://localhost:27017/chat-api"`
 ```sh
@@ -46,11 +45,11 @@ npm run build
 
 ```
 
-#### Run a live online instance 
-* Go to `src/config/index.js` 
+#### Run a live online instance
+* Go to `src/config/index.js`
 * change port to `"port": process.env.PORT`
 * change mongoUrl to `"mongoUrl": process.env.MONGODB_URI`
 
 You can also spin up a free Heroku dyno to test it out:
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/devslopes/mac-chat-api)
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://bitbucket.org/paduh/badagigbackend)

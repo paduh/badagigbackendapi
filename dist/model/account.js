@@ -16,8 +16,8 @@ var Schema = _mongoose2.default.Schema;
 var Account = new Schema({
   email: String,
   password: String,
-  facebookId: String,
-  googleId: String
+  facebookid: String,
+  googleid: String
 });
 
 Account.plugin(_passportLocalMongoose2.default);

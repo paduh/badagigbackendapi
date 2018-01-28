@@ -12,7 +12,7 @@ import User from './model/user';
 import { generateAccessToken, respond, authenticate } from './middleware/authMiddleware'
 
 const LocalStrategy  = require('passport-local').Strategy;
-var GoogleTokenStrategy =  require('passport-google-token').Strategy;
+var GoogleTokenStrategy =  require('passport-google-oauth20').Strategy;
 var FacebookTokenStrategy =  require('passport-facebook-token');
 
 
@@ -42,7 +42,8 @@ passport.use(new LocalStrategy({
 //GoogleTokenStrategy
 passport.use(new GoogleTokenStrategy({
   clientID: config.googleClientID,
-  clientSecret: config.googleClientSecret
+  clientSecret: config.googleClientSecret,
+  callbackURL: "http://localhost:4010/auth/google/callback"
 }, (accessToken, refreshToken, profile, done) => {
   User.findOne({googleId: profile.id}, (err, user) => {
     if (err) {
@@ -78,7 +79,7 @@ passport.use(new FacebookTokenStrategy({
   clientID: config.facebookClientID,
   clientSecret: config.facebookClientSecret
 }, (accessToken, refreshToken, profile, done) => {
-  Account.findOne({facebookId: profile.id}, (err, user) => {
+  User.findOne({facebookId: profile.id}, (err, user) => {
       if (err) {
         res.status(409).json({ message: `An error occured: ${err.message}`});
         return done(err, false);
@@ -87,8 +88,7 @@ passport.use(new FacebookTokenStrategy({
         return done(null, user);
       }
       else {
-        //ccount =  Account({facebookId: })
-        user = new User({ username: profile.email});
+        user = new User();
         console.log(`Profile id ${profile.id}`);
         console.log(`Profile name ${profile.name.givenName}`);
         console.log(`Profile email ${profile.emails[0].value}`);
@@ -106,6 +106,7 @@ passport.use(new FacebookTokenStrategy({
             generateAccessToken, respond;
             return done(null, user);
         })
+
       }
   });
 }

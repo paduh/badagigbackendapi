@@ -106,8 +106,6 @@ exports.default = function (_ref) {
   api.post('/auth/facebook/token', _passport2.default.authenticate('facebook-token', { session: false }), function (req, res, next) {
     if (req.user) {
       console.log('User req ' + req.user);
-      _authMiddleware.generateAccessToken;
-      _authMiddleware.respond;
 
       req.token = req.token || {};
       req.token = _jsonwebtoken2.default.sign({}, SECRET, {
@@ -125,7 +123,7 @@ exports.default = function (_ref) {
   });
 
   //'/v1/account/google/token'
-  api.post('/google/token', _passport2.default.authenticate('google-token'), function (req, res) {
+  api.post('/google/token', _passport2.default.authenticate('google', { scope: ['profile'] }), function (req, res) {
     if (req.user) {
       console.log('Google token route');
       _authMiddleware.generateAccessToken, _authMiddleware.respond;

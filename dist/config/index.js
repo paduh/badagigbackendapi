@@ -15,7 +15,7 @@ var _uuid2 = _interopRequireDefault(_uuid);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-  "port": 3010,
+  "port": 3000,
   "mongoUrl": "mongodb://localhost:27017/badagig",
   // "port": process.env.PORT,
   // "mongoUrl": process.env.MONGODB_URI,
