@@ -21,5 +21,4 @@ const requestSchema = new Schema({
   // servicetype: {type: ObjectId, ref: ServiceType},
   // expertise: {type: ObjectId, ref: Expertise}
 });
-
 module.exports = mongoose.model('Request', requestSchema);

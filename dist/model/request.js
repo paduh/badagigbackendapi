@@ -22,9 +22,6 @@ var _platform = require('./platform');
 
 var _platform2 = _interopRequireDefault(_platform);
 
-var _serviceType = require('./serviceType');
-
-var _serviceType2 = _interopRequireDefault(_serviceType);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -40,6 +37,5 @@ var requestSchema = new Schema((_ref = {
   requestdate: { type: Date, default: Date.now },
   deliverydays: String, default: "",
   description: String }, _defineProperty(_ref, 'default', ""), _defineProperty(_ref, 'budget', Number), _defineProperty(_ref, 'default', 0), _defineProperty(_ref, 'fulfilled', Boolean), _defineProperty(_ref, 'default', false), _ref));
-
 module.exports = _mongoose2.default.model('Request', requestSchema);
 //# sourceMappingURL=request.js.map

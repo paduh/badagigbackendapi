@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const categorySchema = new Schema({
-  submittedById: { type:ObjectId, ref: 'User' },
+  submittedById: { type: ObjectId, ref: 'User' },
   categoryTitle: { type: String, required: true },
   categoryDescription: String, default: "",
   recommended: Boolean, default: false,
