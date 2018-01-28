@@ -54,6 +54,7 @@ export default({ config, db }) => {
       .find({ 'channelId' : req.params.channelId }, (err, messages) => {
         if(err) {
           res.status(500).json({ message: err });
+          return;
         }
         res.status(200).json(messages);
       });
@@ -66,6 +67,7 @@ export default({ config, db }) => {
     }, (err, message) => {
       if (err) {
         res.status(500).json({ message: err });
+        return;
       }
       res.status(200).json({ message: 'Message Successfully Removed'});
     });
@@ -75,7 +77,8 @@ export default({ config, db }) => {
   api.delete('/', authenticate, (req, res) => {
     PrivateMessage.find({}, (err, users) => {
       if (err) {
-        res.status(500).json({ message: err });
+        res.status(500).json({ message: `An error has occured ${err.message}` });
+        return;
       }
       res.status(200).json({ message: 'Users All Removed'});
     });

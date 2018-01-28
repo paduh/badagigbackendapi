@@ -42,6 +42,7 @@ export default({ config, db }) => {
       message.save(err => {
         if (err) {
           res.status(500).json({ message: err });
+          return;
         }
         res.status(200).json({ message: 'Message updated' });
       });
@@ -54,6 +55,7 @@ export default({ config, db }) => {
       .find({ 'channelId' : req.params.channelId }, (err, messages) => {
         if(err) {
           res.status(500).json({ message: err });
+          return;
         }
         res.status(200).json(messages);
       });
@@ -66,6 +68,7 @@ export default({ config, db }) => {
     }, (err, message) => {
       if (err) {
         res.status(500).json({ message: err });
+        return;
       }
       res.status(200).json({ message: 'Message Successfully Removed'});
     });
@@ -76,6 +79,7 @@ export default({ config, db }) => {
     ChannelMessage.find({}, (err, users) => {
       if (err) {
         res.status(500).json({ message: err });
+        return;
       }
       res.status(200).json({ message: 'Users All Removed'});
     });

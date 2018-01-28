@@ -11,6 +11,10 @@ import subCategory from '../controller/subcategory';
 import request from '../controller/request';
 import category from '../controller/category';
 import badaGig from '../controller/badagig';
+import getSignedUrl from '../controller/getsignedurl';
+import order from '../controller/order';
+import bannerAdvert from '../controller/banneradvert';
+
 
 let router = express();
 
@@ -30,6 +34,10 @@ initalizeDb(db => {
   router.use('/request', request({ config, db }));
   router.use('/category', category({ config, db }));
   router.use('/badagig', badaGig({ config, db}));
+  router.use('/getsignedurl', getSignedUrl({ config, db }));
+  router.use('/order', order({config, db}));
+  router.use('/banneradvert', bannerAdvert({config, db}));
+
 });
 
 export default router;

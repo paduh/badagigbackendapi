@@ -1,21 +1,25 @@
 import mongoose from 'mongoose';
 import User from './user';
 import Subcategory from './subcategory';
+import Expertise from './expertise';
+import Platform from './platform';
+import ServiceType from './serviceType';
 
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const requestSchema = new Schema({
-  subcategoryId: {type: ObjectId, ref: 'Subcategory'},
-  userId: {type: ObjectId, ref: 'User'},
-  fulfilledById: {type: ObjectId, ref: 'User', default: ""},
-  requestDate: {type: Date, default: Date.now},
-  deliveryDays: String,
+  subcategoryid: {type: ObjectId, ref: 'Subcategory'},
+  badagigeeid: {type: ObjectId, ref: 'User'},
+  badagigerid: {type: ObjectId, ref: 'User',},
+  requestdate: {type: Date, default: Date.now},
+  deliverydays: String, default: "",
   description: String, default: "",
   budget: Number, default: 0,
-  platform: String, default: "",
-  serviceType: String, default: "",
-  expertise: String, default: ""
+  fulfilled: Boolean, default: false
+  // platform: {type: ObjectId, ref: Platform},
+  // servicetype: {type: ObjectId, ref: ServiceType},
+  // expertise: {type: ObjectId, ref: Expertise}
 });
 
 module.exports = mongoose.model('Request', requestSchema);

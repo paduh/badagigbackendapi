@@ -10,15 +10,18 @@ export default({ config, db }) => {
 
   // /v1/category/add Create
   api.post('/add', authenticate, (req, res) => {
-    let newCategory = new Category;
-    newCategory.submittedById = req.params.submittedById;
-    newCategory.categoryTitle = req.params.categoryTitle;
-    newCategory.categoryDescription = req.params.categoryDescription;
-    newCategory.updatedById = req.params.updatedById;
+
+    let newCategory = new Category();
+    newCategory.submittedById = req.body.submittedById;
+    newCategory.categoryTitle = req.body.categoryTitle;
+    newCategory.categoryDescription = req.body.categoryDescription;
+    newCategory.recommended = req.body.recommended;
+
 
     newCategory.save(err => {
       if (err) {
         res.status(500).json({message: err});
+        return;
       }
         res.status(200).json({message: 'Category saved successfully'});
     });
@@ -28,26 +31,29 @@ export default({ config, db }) => {
   api.get('/', authenticate, (req, res) => {
     Category.find({}, (err, category) => {
       if (err) {
-        res.status(500).json({message: err});
+        res.status(500).json({message: `An erro has occured ${err.message}`});
+        return;
       }
-        res.status(200).json({category});
+        res.status(200).json(category);
     });
   });
 
   // /v1/category/:id Update
-  api.put('/:id', (req, res) => {
+  api.put('update/:id', authenticate, (req, res) => {
     Category.findById(req.params.id, (err, category) => {
       if (err) {
         res.status(500).json({message: err});
+        return;
       }
-        category.submittedById = req.params.submittedById;
-        category.updatedById = req.params.updatedById;
-        category.categoryTitle = req.params.categoryTitle;
-        category.categoryDescription = req.params.categoryDescription;
+        category.submittedById = req.body.submittedById;
+        category.categoryTitle = req.body.categoryTitle;
+        category.categoryDescription = req.body.categoryDescription;
+        category.recommended = req.body.recommended;
 
         category.save(err => {
           if (err) {
             res.status(500).json({message: err});
+            return;
           }
             res.status(200).json({message: 'Category updated successfully'});
       });
@@ -55,10 +61,11 @@ export default({ config, db }) => {
   });
 
   // /v1/category/:id Delete 1
-  api.delete('/:id', (req, res) => {
+  api.delete('delete/:id', authenticate, (req, res) => {
     Category.findById({_id: req.params.id}, (err, category) => {
       if (err) {
         res.status(500).json({message: err});
+        return;
       }
         res.status(200).json({message: 'Category deleted successfully'});
     });

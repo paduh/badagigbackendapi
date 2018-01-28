@@ -3,8 +3,10 @@ const Schema = mongoose.Schema;
 import passportLocalMongoose from 'passport-local-mongoose';
 
 const Account = new Schema({
-  email: {type: String, required: true, unique: true},
-  password: {type: String, required: true}
+  email: String,
+  password: String,
+  facebookId: String,
+  googleId: String
 });
 
 Account.plugin(passportLocalMongoose);

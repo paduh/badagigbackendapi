@@ -6,9 +6,15 @@ import socket from 'socket.io';
 import PrivateMessage from './model/privatemessage';
 import ChannelMessage from './model/channelmessage';
 import Channel from './model/channel';
+import UserDataExt from './controller/extensions/userData-ext';
+import User from './model/user';
+//import FacebookTokenStrategy from 'passport-token-facebook';
+import { generateAccessToken, respond, authenticate } from './middleware/authMiddleware'
 
 const LocalStrategy  = require('passport-local').Strategy;
-const FacebookStrategy = require('passport-facebook').Strategy;
+var GoogleTokenStrategy =  require('passport-google-token').Strategy;
+var FacebookTokenStrategy =  require('passport-facebook-token');
+
 
 import config from './config';
 import routes from './routes';
@@ -32,6 +38,80 @@ passport.use(new LocalStrategy({
 },
   Account.authenticate()
 ));
+
+//GoogleTokenStrategy
+passport.use(new GoogleTokenStrategy({
+  clientID: config.googleClientID,
+  clientSecret: config.googleClientSecret
+}, (accessToken, refreshToken, profile, done) => {
+  User.findOne({googleId: profile.id}, (err, user) => {
+    if (err) {
+      //res.status(500).json({message: `An error has occured: ${err.message}`});
+      return done(err, false);
+    }
+    else if (!err && user !== null) {
+      return done(false, user);
+    }
+    else {
+      user = new User({username: profile.email});
+      user.googleId = profile.id;
+      user.firstname = profile.name.givenname;
+      user.lastname = profile.name.familyname;
+      user.email = profile.email;
+
+      user.save(err => {
+        if (err) {
+          res.status(500).json({message: `An error has occured: ${err.message}`});
+          return done(err, false);
+        } else {
+          res.status(200).json({message: `New user added from facebook successfully`});
+          return done(null, user);
+        }
+      })
+    }
+  });
+}
+));
+
+//FacebookTokenStrategy
+passport.use(new FacebookTokenStrategy({
+  clientID: config.facebookClientID,
+  clientSecret: config.facebookClientSecret
+}, (accessToken, refreshToken, profile, done) => {
+  Account.findOne({facebookId: profile.id}, (err, user) => {
+      if (err) {
+        res.status(409).json({ message: `An error occured: ${err.message}`});
+        return done(err, false);
+      }
+      else if (!err && user !== null) {
+        return done(null, user);
+      }
+      else {
+        //ccount =  Account({facebookId: })
+        user = new User({ username: profile.email});
+        console.log(`Profile id ${profile.id}`);
+        console.log(`Profile name ${profile.name.givenName}`);
+        console.log(`Profile email ${profile.emails[0].value}`);
+        user.facebookId = profile.id;
+        user.firstname = profile.name.givenName;
+        user.lastname = profile.name.familyName;
+        user.email = profile.emails[0].value;
+        user.save(err => {
+          if (err) {
+            console.log(`Error`);
+              //res.status(500).json({message: `An error has occured: ${err.message}`});
+              return done(err, false);
+          }
+            console.log(`Success`);
+            generateAccessToken, respond;
+            return done(null, user);
+        })
+      }
+  });
+}
+));
+
+
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 

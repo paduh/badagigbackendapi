@@ -21,7 +21,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = function (callback) {
   var db = void 0;
   // Connect to the database before starting the application server.
-  _mongoose2.default.connect(_config2.default.mongoUrl, function (err, database) {
+  _mongoose2.default.connect(_config2.default.mongoUrl, { useMongoClient: true }, function (err, database) {
     if (err) {
       console.log(err);
       process.exit(1);

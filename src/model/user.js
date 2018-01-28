@@ -2,16 +2,18 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  firstName: String, default: "",
-  lastName: String, default: "",
-  userName: String, default: "",
+  firstname: String, default: "",
+  lastname: String, default: "",
+  username: String, default: "",
   email: String, default: "",
-  phoneNumber: Number, default: "",
-  profilePicUrl: String, default: "",
+  phonenumber: Number, default: "",
+  profilepicurl: String, default: "",
   availabity: String, default: "",
   skills: String, default: "",
   education: String, default: "",
-  certification: String,
+  certification: String, default: "",
+  passwordresetToken: String,
+  tokenexpiration: String
 });
 
 module.exports = mongoose.model('User', userSchema);

@@ -20,13 +20,27 @@ var _socket = require('socket.io');
 
 var _socket2 = _interopRequireDefault(_socket);
 
-var _message = require('./model/message');
+var _privatemessage = require('./model/privatemessage');
 
-var _message2 = _interopRequireDefault(_message);
+var _privatemessage2 = _interopRequireDefault(_privatemessage);
+
+var _channelmessage = require('./model/channelmessage');
+
+var _channelmessage2 = _interopRequireDefault(_channelmessage);
 
 var _channel = require('./model/channel');
 
 var _channel2 = _interopRequireDefault(_channel);
+
+var _userDataExt = require('./controller/extensions/userData-ext');
+
+var _userDataExt2 = _interopRequireDefault(_userDataExt);
+
+var _user = require('./model/user');
+
+var _user2 = _interopRequireDefault(_user);
+
+var _authMiddleware = require('./middleware/authMiddleware');
 
 var _config = require('./config');
 
@@ -39,6 +53,10 @@ var _routes2 = _interopRequireDefault(_routes);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var LocalStrategy = require('passport-local').Strategy;
+//import FacebookTokenStrategy from 'passport-token-facebook';
+
+var GoogleTokenStrategy = require('passport-google-token').Strategy;
+var FacebookTokenStrategy = require('passport-facebook-token');
 
 var app = (0, _express2.default)();
 app.server = _http2.default.createServer(app);
@@ -50,13 +68,80 @@ app.use(_bodyParser2.default.json({
   limit: _config2.default.bodyLimit
 }));
 
-//passport config
+//local passport config
 app.use(_passport2.default.initialize());
 var Account = require('./model/account');
 _passport2.default.use(new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password'
 }, Account.authenticate()));
+
+//GoogleTokenStrategy
+_passport2.default.use(new GoogleTokenStrategy({
+  clientID: _config2.default.googleClientID,
+  clientSecret: _config2.default.googleClientSecret
+}, function (accessToken, refreshToken, profile, done) {
+  _user2.default.findOne({ googleId: profile.id }, function (err, user) {
+    if (err) {
+      //res.status(500).json({message: `An error has occured: ${err.message}`});
+      return done(err, false);
+    } else if (!err && user !== null) {
+      return done(false, user);
+    } else {
+      user = new _user2.default({ username: profile.email });
+      user.googleId = profile.id;
+      user.firstname = profile.name.givenname;
+      user.lastname = profile.name.familyname;
+      user.email = profile.email;
+
+      user.save(function (err) {
+        if (err) {
+          res.status(500).json({ message: 'An error has occured: ' + err.message });
+          return done(err, false);
+        } else {
+          res.status(200).json({ message: 'New user added from facebook successfully' });
+          return done(null, user);
+        }
+      });
+    }
+  });
+}));
+
+//FacebookTokenStrategy
+_passport2.default.use(new FacebookTokenStrategy({
+  clientID: _config2.default.facebookClientID,
+  clientSecret: _config2.default.facebookClientSecret
+}, function (accessToken, refreshToken, profile, done) {
+  Account.findOne({ facebookId: profile.id }, function (err, user) {
+    if (err) {
+      res.status(409).json({ message: 'An error occured: ' + err.message });
+      return done(err, false);
+    } else if (!err && user !== null) {
+      return done(null, user);
+    } else {
+      //ccount =  Account({facebookId: })
+      user = new _user2.default({ username: profile.email });
+      console.log('Profile id ' + profile.id);
+      console.log('Profile name ' + profile.name.givenName);
+      console.log('Profile email ' + profile.emails[0].value);
+      user.facebookId = profile.id;
+      user.firstname = profile.name.givenName;
+      user.lastname = profile.name.familyName;
+      user.email = profile.emails[0].value;
+      user.save(function (err) {
+        if (err) {
+          console.log('Error');
+          //res.status(500).json({message: `An error has occured: ${err.message}`});
+          return done(err, false);
+        }
+        console.log('Success');
+        _authMiddleware.generateAccessToken, _authMiddleware.respond;
+        return done(null, user);
+      });
+    }
+  });
+}));
+
 _passport2.default.serializeUser(Account.serializeUser());
 _passport2.default.deserializeUser(Account.deserializeUser());
 
@@ -65,7 +150,7 @@ app.use('/v1', _routes2.default);
 
 // Base URL test endpoint to see if API is running
 app.get('/', function (req, res) {
-  res.json({ message: 'Chat API is ALIVE!' });
+  res.json({ message: 'BadaGig API is ALIVE!' });
 });
 
 /*||||||||||||||||SOCKET|||||||||||||||||||||||*/
@@ -102,13 +187,36 @@ io.on('connection', function (client) {
     io.emit("userTypingUpdate", typingUsers);
   });
 
-  //Listens for a new chat message
-  client.on('newMessage', function (messageBody, userId, channelId, userName, userAvatar, userAvatarColor) {
+  //listens for a new private chat message
+  client.on('newPrivateMessage', function (messageBody, userName, senderId, receipientId, profilePicUrl) {
+    // Create message
+
+    console.log(messageBody);
+
+    var newMessage = new _privatemessage2.default({
+      messageBody: messageBody,
+      senderId: senderId,
+      userName: userName,
+      receipientId: receipientId,
+      profilePicUrl: profilePicUrl
+    });
+    //Save it to database
+    newMessage.save(function (err, msg) {
+      if (err) {
+        console.log(err);
+      }
+      console.log('new message sent');
+      io.emit("PrivateMessageCreated", msg.messageBody, msg.userName, msg.senderId, msg.receipientId, msg.profilePicUrl);
+    });
+  });
+
+  //Listens for a new channel chat message
+  client.on('newChannelMessage', function (messageBody, userName, senderId, receipientId, profilePicUrl) {
     //Create message
 
     console.log(messageBody);
 
-    var newMessage = new _message2.default({
+    var newMessage = new _channelmessage2.default({
       messageBody: messageBody,
       userId: userId,
       channelId: channelId,
@@ -121,7 +229,7 @@ io.on('connection', function (client) {
       //Send message to those connected in the room
       console.log('new message sent');
 
-      io.emit("messageCreated", msg.messageBody, msg.userId, msg.channelId, msg.userName, msg.userAvatar, msg.userAvatarColor, msg.id, msg.timeStamp);
+      io.emit("channelMessageCreated", msg.messageBody, msg.userId, msg.userName, msg.channelId, msg.userName, msg.userAvatar, msg.userAvatarColor, msg.id, msg.timeStamp);
     });
   });
 });

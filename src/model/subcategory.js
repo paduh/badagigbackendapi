@@ -7,7 +7,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const subCategorySchema = new Schema({
   categoryId: {type: ObjectId, ref: 'Category'},
-  userId: { type: ObjectId, ref: 'User'},
+  submittedById: { type: ObjectId, ref: 'User'},
   subCategoryTitle: String, default: "",
 });
 

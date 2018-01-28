@@ -32,9 +32,41 @@ var _channel = require('../controller/channel');
 
 var _channel2 = _interopRequireDefault(_channel);
 
-var _message = require('../controller/message');
+var _privatemessage = require('../controller/privatemessage');
 
-var _message2 = _interopRequireDefault(_message);
+var _privatemessage2 = _interopRequireDefault(_privatemessage);
+
+var _channelmessage = require('../controller/channelmessage');
+
+var _channelmessage2 = _interopRequireDefault(_channelmessage);
+
+var _subcategory = require('../controller/subcategory');
+
+var _subcategory2 = _interopRequireDefault(_subcategory);
+
+var _request = require('../controller/request');
+
+var _request2 = _interopRequireDefault(_request);
+
+var _category = require('../controller/category');
+
+var _category2 = _interopRequireDefault(_category);
+
+var _badagig = require('../controller/badagig');
+
+var _badagig2 = _interopRequireDefault(_badagig);
+
+var _getsignedurl = require('../controller/getsignedurl');
+
+var _getsignedurl2 = _interopRequireDefault(_getsignedurl);
+
+var _order = require('../controller/order');
+
+var _order2 = _interopRequireDefault(_order);
+
+var _banneradvert = require('../controller/banneradvert');
+
+var _banneradvert2 = _interopRequireDefault(_banneradvert);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50,7 +82,15 @@ var router = (0, _express2.default)();
   router.use('/user', (0, _user2.default)({ config: _config2.default, db: db }));
   router.use('/account', (0, _account2.default)({ config: _config2.default, db: db }));
   router.use('/channel', (0, _channel2.default)({ config: _config2.default, db: db }));
-  router.use('/message', (0, _message2.default)({ config: _config2.default, db: db }));
+  router.use('/privateMessage', (0, _privatemessage2.default)({ config: _config2.default, db: db }));
+  router.use('/channelmessage', (0, _channelmessage2.default)({ config: _config2.default, db: db }));
+  router.use('/subcategory', (0, _subcategory2.default)({ config: _config2.default, db: db }));
+  router.use('/request', (0, _request2.default)({ config: _config2.default, db: db }));
+  router.use('/category', (0, _category2.default)({ config: _config2.default, db: db }));
+  router.use('/badagig', (0, _badagig2.default)({ config: _config2.default, db: db }));
+  router.use('/getsignedurl', (0, _getsignedurl2.default)({ config: _config2.default, db: db }));
+  router.use('/order', (0, _order2.default)({ config: _config2.default, db: db }));
+  router.use('/banneradvert', (0, _banneradvert2.default)({ config: _config2.default, db: db }));
 });
 
 exports.default = router;

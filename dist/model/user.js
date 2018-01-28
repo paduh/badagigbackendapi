@@ -13,8 +13,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var Schema = _mongoose2.default.Schema;
 
 var userSchema = new Schema((_ref = {
-  name: String, default: "",
-  email: String }, _defineProperty(_ref, "default", ""), _defineProperty(_ref, "avatarName", String), _defineProperty(_ref, "default", ""), _defineProperty(_ref, "avatarColor", String), _defineProperty(_ref, "default", ""), _ref));
+  firstname: String, default: "",
+  lastname: String }, _defineProperty(_ref, "default", ""), _defineProperty(_ref, "username", String), _defineProperty(_ref, "default", ""), _defineProperty(_ref, "email", String), _defineProperty(_ref, "default", ""), _defineProperty(_ref, "phonenumber", Number), _defineProperty(_ref, "default", ""), _defineProperty(_ref, "profilepicurl", String), _defineProperty(_ref, "default", ""), _defineProperty(_ref, "availabity", String), _defineProperty(_ref, "default", ""), _defineProperty(_ref, "skills", String), _defineProperty(_ref, "default", ""), _defineProperty(_ref, "education", String), _defineProperty(_ref, "default", ""), _defineProperty(_ref, "certification", String), _defineProperty(_ref, "default", ""), _defineProperty(_ref, "passwordresetToken", String), _defineProperty(_ref, "tokenexpiration", String), _ref));
 
 module.exports = _mongoose2.default.model('User', userSchema);
 //# sourceMappingURL=user.js.map
