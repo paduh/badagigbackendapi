@@ -22,6 +22,9 @@ var _platform = require('./platform');
 
 var _platform2 = _interopRequireDefault(_platform);
 
+var _servicetype = require('./servicetype');
+
+var _servicetype2 = _interopRequireDefault(_servicetype);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

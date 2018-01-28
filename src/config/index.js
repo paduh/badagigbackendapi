@@ -2,10 +2,10 @@ import mongodb from 'mongodb';
 import uuid from 'uuid';
 
 export default {
-  "port": 3010,
- "mongoUrl": "mongodb://localhost:27017/badagig",
-  //"port": process.env.PORT,
-//  "mongoUrl": process.env.MONGODB_URI,
+//  "port": 3010,
+ //"mongoUrl": "mongodb://localhost:27017/badagig",
+  "port": process.env.PORT,
+  "mongoUrl": process.env.MONGODB_URI,
   "bodyLimit": "100kb",
   "accessKeyId": "AKIAIG7U3J3EOCCV6SHA",
   "secretAccessKey": "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",

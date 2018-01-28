@@ -3,7 +3,7 @@ import User from './user';
 import Subcategory from './subcategory';
 import Expertise from './expertise';
 import Platform from './platform';
-import ServiceType from './serviceType';
+import ServiceType from './servicetype';
 
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
