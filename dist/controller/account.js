@@ -76,12 +76,28 @@ exports.default = function (_ref) {
           res.status(500).json({ message: err });
           return;
         }
-        console.log("Registering new account");
         _passport2.default.authenticate('local', { session: false })(req, res, function () {
           res.status(200).send('Successfully created new account');
         });
       });
       // }
+    });
+  });
+  //'/v1/account/activateaccount/:email' This is to activate a newly created account via email
+  api.post('/activateaccount/:email', function (req, res) {
+    _userDataExt2.default.findUserByEmail(req.params.email, function (err, user) {
+      if (err) {
+        res.status(500).json({ message: 'An error has occured, please try again. ' + err.message });
+      } else if (!user) {
+        res.status(404).json({ message: "The specified email is not registered with us. Please proceed to create an account" });
+      }
+      user.isactivated = true;
+      user.save(function (err) {
+        if (err) {
+          res.status(500).json({ message: 'An error has occured, please try again. ' + err.message });
+        }
+        res.status(200).json('You account have been successfully activiated. You can proceed to login');
+      });
     });
   });
 

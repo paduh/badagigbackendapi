@@ -50,7 +50,7 @@ exports.default = function (_ref) {
       if (err) {
         res.status(500).json({ message: 'An erro has occured ' + err.message });
       }
-      res.status(200).json({ bannerAdverts: bannerAdverts });
+      res.status(200).json(bannerAdverts);
     });
   });
 

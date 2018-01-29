@@ -27,7 +27,8 @@ var respond = function respond(req, res) {
   res.status(200).json({
     user: req.user.username,
     token: req.token,
-    id: req.user._id
+    id: req.user._id,
+    isactivated: req.user.isactivated
   });
 };
 
