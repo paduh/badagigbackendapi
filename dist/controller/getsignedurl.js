@@ -33,8 +33,8 @@ exports.default = function (_ref) {
 
   var s3 = new _awsSdk2.default.S3();
   s3.config.update({
-    accessKeyId: config.S3ACCESSKEYID,
-    secretAccessKey: config.S3SECRETACCESSKEY,
+    accessKeyId: config.accessKeyId,
+    secretAccessKey: config.secretAccessKey,
     region: config.region,
     signatureVersion: config.signatureVersion
   });

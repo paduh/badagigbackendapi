@@ -41,8 +41,8 @@ passport.use(new LocalStrategy({
 
 //GoogleTokenStrategy
 passport.use(new GoogleTokenStrategy({
-  clientID: config.GOOGLECLIENTID,
-  clientSecret: config.GOOGLECLIENTSECRET,
+  clientID: config.googleClientID,
+  clientSecret: config.googleClientSecret,
   callbackURL: "http://localhost:4010/auth/google/callback"
 }, (accessToken, refreshToken, profile, done) => {
   User.findOne({googleId: profile.id}, (err, user) => {
@@ -76,8 +76,8 @@ passport.use(new GoogleTokenStrategy({
 
 //FacebookTokenStrategy
 passport.use(new FacebookTokenStrategy({
-  clientID: config.FACEBOOKCLIENTID,
-  clientSecret: config.FACEBOOKCLIENTSECRET
+  clientID: config.facebookClientID,
+  clientSecret: config.facebookClientSecret
 }, (accessToken, refreshToken, profile, done) => {
   User.findOne({facebookId: profile.id}, (err, user) => {
       if (err) {

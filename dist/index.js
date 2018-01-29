@@ -78,8 +78,8 @@ _passport2.default.use(new LocalStrategy({
 
 //GoogleTokenStrategy
 _passport2.default.use(new GoogleTokenStrategy({
-  clientID: _config2.default.GOOGLECLIENTID,
-  clientSecret: _config2.default.GOOGLECLIENTSECRET,
+  clientID: _config2.default.googleClientID,
+  clientSecret: _config2.default.googleClientSecret,
   callbackURL: "http://localhost:4010/auth/google/callback"
 }, function (accessToken, refreshToken, profile, done) {
   _user2.default.findOne({ googleId: profile.id }, function (err, user) {
@@ -110,8 +110,8 @@ _passport2.default.use(new GoogleTokenStrategy({
 
 //FacebookTokenStrategy
 _passport2.default.use(new FacebookTokenStrategy({
-  clientID: _config2.default.FACEBOOKCLIENTID,
-  clientSecret: _config2.default.FACEBOOKCLIENTSECRET
+  clientID: _config2.default.facebookClientID,
+  clientSecret: _config2.default.facebookClientSecret
 }, function (accessToken, refreshToken, profile, done) {
   _user2.default.findOne({ facebookId: profile.id }, function (err, user) {
     if (err) {
