@@ -13,8 +13,8 @@ export default({ config, db }) => {
 
     var s3 = new aws.S3();
     s3.config.update({
-      accessKeyId: config.accessKeyId,
-      secretAccessKey: config.secretAccessKey,
+      accessKeyId: config.S3ACCESSKEYID,
+      secretAccessKey: config.S3SECRETACCESSKEY,
       region: config.region,
       signatureVersion: config.signatureVersion,
     });
