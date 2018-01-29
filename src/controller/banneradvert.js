@@ -30,7 +30,7 @@ api.get('/', (req, res) => {
     if (err) {
       res.status(500).json({message: `An erro has occured ${err.message}`})
     }
-      res.status(200).json({bannerAdverts});
+      res.status(200).json(bannerAdverts);
   });
 });
 

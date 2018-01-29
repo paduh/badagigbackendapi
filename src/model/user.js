@@ -15,7 +15,9 @@ const userSchema = new Schema({
   education: String, default: "",
   certification: String, default: "",
   passwordresetToken: String,
-  tokenexpiration: String
+  tokenexpiration: String,
+  isactivated: String, default: false
+
 });
 
 module.exports = mongoose.model('User', userSchema);
