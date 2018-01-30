@@ -115,7 +115,7 @@ _passport2.default.use(new LocalStrategy({
 
 //FacebookTokenStrategy
 _passport2.default.use(new FacebookTokenStrategy({
-  clientID: _config2.default.facebookClientID,
+  clientID: process.env.FACEBOOKCLIENTID,
   clientSecret: _config2.default.facebookClientSecret
 }, function (accessToken, refreshToken, profile, done) {
   _user2.default.findOne({ facebookId: profile.id }, function (err, user) {
