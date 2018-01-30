@@ -77,7 +77,7 @@ passport.use(new LocalStrategy({
 
 //FacebookTokenStrategy
 passport.use(new FacebookTokenStrategy({
-  clientID: config.facebookClientID,
+  clientID: process.env.FACEBOOKCLIENTID,
   clientSecret: config.facebookClientSecret
 }, (accessToken, refreshToken, profile, done) => {
   User.findOne({facebookId: profile.id}, (err, user) => {
