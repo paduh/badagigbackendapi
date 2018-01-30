@@ -1,5 +1,9 @@
 'use strict';
 
+var _dotenv = require('dotenv');
+
+var _dotenv2 = _interopRequireDefault(_dotenv);
+
 var _http = require('http');
 
 var _http2 = _interopRequireDefault(_http);
@@ -52,7 +56,7 @@ var _routes2 = _interopRequireDefault(_routes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-require('dotenv/config');
+_dotenv2.default.config();
 //import FacebookTokenStrategy from 'passport-token-facebook';
 
 

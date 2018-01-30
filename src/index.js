@@ -1,9 +1,12 @@
-require ('dotenv/config');
+import dotenv from 'dotenv';
 import http from 'http';
 import express from 'express';
 import bodyParser from 'body-parser';
 import passport from 'passport';
 import socket from 'socket.io';
+
+dotenv.config();
+
 import PrivateMessage from './model/privatemessage';
 import ChannelMessage from './model/channelmessage';
 import Channel from './model/channel';
