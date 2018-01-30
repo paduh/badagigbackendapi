@@ -42,7 +42,7 @@ passport.use(new LocalStrategy({
 
 //GoogleTokenStrategy
 passport.use(new GoogleTokenStrategy({
-  clientID: process.env.googleClientID,
+  clientID: config.googleClientID,
   clientSecret: config.googleClientSecret,
   callbackURL: "http://localhost:4010/auth/google/callback"
 }, (accessToken, refreshToken, profile, done) => {
