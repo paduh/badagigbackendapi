@@ -1,3 +1,4 @@
+require (dotenv/config);
 import http from 'http';
 import express from 'express';
 import bodyParser from 'body-parser';
@@ -41,8 +42,8 @@ passport.use(new LocalStrategy({
 
 //GoogleTokenStrategy
 passport.use(new GoogleTokenStrategy({
-  clientID: process.env.GOOGLECLIENTID,
-  clientSecret: process.env.GOOGLECLIENTSECRET,
+  clientID: process.env.GOOGLE_CLIENTID,
+  clientSecret: process.env.GOOGLE_CLIENTSECRET,
   callbackURL: "http://localhost:4010/auth/google/callback"
 }, (accessToken, refreshToken, profile, done) => {
   User.findOne({googleId: profile.id}, (err, user) => {
@@ -76,8 +77,8 @@ passport.use(new GoogleTokenStrategy({
 
 //FacebookTokenStrategy
 passport.use(new FacebookTokenStrategy({
-  clientID: process.env.FACEBOOKCLIENTID,
-  clientSecret: process.env.FACEBOOKCLIENTSECRET
+  clientID: process.env.FACEBOOK_CLIENTID,
+  clientSecret: process.env.FACEBOOK_CLIENTSECRET
 }, (accessToken, refreshToken, profile, done) => {
   User.findOne({facebookId: profile.id}, (err, user) => {
       if (err) {

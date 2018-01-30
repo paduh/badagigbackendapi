@@ -52,9 +52,11 @@ var _routes2 = _interopRequireDefault(_routes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var LocalStrategy = require('passport-local').Strategy;
+require(dotenv / _config2.default);
 //import FacebookTokenStrategy from 'passport-token-facebook';
 
+
+var LocalStrategy = require('passport-local').Strategy;
 var GoogleTokenStrategy = require('passport-google-oauth20').Strategy;
 var FacebookTokenStrategy = require('passport-facebook-token');
 
@@ -78,8 +80,8 @@ _passport2.default.use(new LocalStrategy({
 
 //GoogleTokenStrategy
 _passport2.default.use(new GoogleTokenStrategy({
-  clientID: process.env.GOOGLECLIENTID,
-  clientSecret: process.env.GOOGLECLIENTSECRET,
+  clientID: process.env.GOOGLE_CLIENTID,
+  clientSecret: process.env.GOOGLE_CLIENTSECRET,
   callbackURL: "http://localhost:4010/auth/google/callback"
 }, function (accessToken, refreshToken, profile, done) {
   _user2.default.findOne({ googleId: profile.id }, function (err, user) {
@@ -110,8 +112,8 @@ _passport2.default.use(new GoogleTokenStrategy({
 
 //FacebookTokenStrategy
 _passport2.default.use(new FacebookTokenStrategy({
-  clientID: process.env.FACEBOOKCLIENTID,
-  clientSecret: process.env.FACEBOOKCLIENTSECRET
+  clientID: process.env.FACEBOOK_CLIENTID,
+  clientSecret: process.env.FACEBOOK_CLIENTSECRET
 }, function (accessToken, refreshToken, profile, done) {
   _user2.default.findOne({ facebookId: profile.id }, function (err, user) {
     if (err) {
