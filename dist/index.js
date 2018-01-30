@@ -52,7 +52,7 @@ var _routes2 = _interopRequireDefault(_routes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-require(dotenv / _config2.default);
+require('dotenv/config');
 //import FacebookTokenStrategy from 'passport-token-facebook';
 
 
