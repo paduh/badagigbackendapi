@@ -77,43 +77,40 @@ _passport2.default.use(new LocalStrategy({
 }, Account.authenticate()));
 
 //GoogleTokenStrategy
-// passport.use(new GoogleTokenStrategy({
-//   clientID: config.googleClientID,
-//   clientSecret: config.googleClientSecret,
-//   callbackURL: "http://localhost:4010/auth/google/callback"
-// }, (accessToken, refreshToken, profile, done) => {
-//   User.findOne({googleId: profile.id}, (err, user) => {
-//     if (err) {
-//       //res.status(500).json({message: `An error has occured: ${err.message}`});
-//       return done(err, false);
-//     }
-//     else if (!err && user !== null) {
-//       return done(false, user);
-//     }
-//     else {
-//       user = new User({username: profile.email});
-//       user.googleId = profile.id;
-//       user.firstname = profile.name.givenname;
-//       user.lastname = profile.name.familyname;
-//       user.email = profile.email;
-//
-//       user.save(err => {
-//         if (err) {
-//           res.status(500).json({message: `An error has occured: ${err.message}`});
-//           return done(err, false);
-//         } else {
-//           res.status(200).json({message: `New user added from facebook successfully`});
-//           return done(null, user);
-//         }
-//       })
-//     }
-//   });
-// }
-// ));
+_passport2.default.use(new GoogleTokenStrategy({
+  clientID: _config2.default.googleClientID,
+  clientSecret: _config2.default.googleClientSecret,
+  callbackURL: "http://localhost:4010/auth/google/callback"
+}, function (accessToken, refreshToken, profile, done) {
+  _user2.default.findOne({ googleId: profile.id }, function (err, user) {
+    if (err) {
+      //res.status(500).json({message: `An error has occured: ${err.message}`});
+      return done(err, false);
+    } else if (!err && user !== null) {
+      return done(false, user);
+    } else {
+      user = new _user2.default({ username: profile.email });
+      user.googleId = profile.id;
+      user.firstname = profile.name.givenname;
+      user.lastname = profile.name.familyname;
+      user.email = profile.email;
+
+      user.save(function (err) {
+        if (err) {
+          res.status(500).json({ message: 'An error has occured: ' + err.message });
+          return done(err, false);
+        } else {
+          res.status(200).json({ message: 'New user added from facebook successfully' });
+          return done(null, user);
+        }
+      });
+    }
+  });
+}));
 
 //FacebookTokenStrategy
 _passport2.default.use(new FacebookTokenStrategy({
-  clientID: process.env.FACEBOOKCLIENTID,
+  clientID: _config2.default.facebookClientID,
   clientSecret: _config2.default.facebookClientSecret
 }, function (accessToken, refreshToken, profile, done) {
   _user2.default.findOne({ facebookId: profile.id }, function (err, user) {

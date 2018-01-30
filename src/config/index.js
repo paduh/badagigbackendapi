@@ -25,5 +25,7 @@ export default {
 
   "googleClientID": process.env.GOOGLECLIENTID,
 
-  "googleClientSecret": process.env.GOOGLECLIENTSECRET
+  "googleClientSecret": process.env.GOOGLECLIENTSECRET,
+
+
 }
