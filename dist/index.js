@@ -80,7 +80,7 @@ _passport2.default.use(new LocalStrategy({
 
 //GoogleTokenStrategy
 _passport2.default.use(new GoogleTokenStrategy({
-  clientID: _config2.default.googleClientID,
+  clientID: process.env.googleClientID,
   clientSecret: _config2.default.googleClientSecret,
   callbackURL: "http://localhost:4010/auth/google/callback"
 }, function (accessToken, refreshToken, profile, done) {
