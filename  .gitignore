@@ -11,3 +11,6 @@ dump.tar.gz
 dump/
 coverage
 *.orig
+/config
+config/
+.evn

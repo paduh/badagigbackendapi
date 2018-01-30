@@ -52,9 +52,11 @@ var _routes2 = _interopRequireDefault(_routes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var LocalStrategy = require('passport-local').Strategy;
+require('dotenv').config;
 //import FacebookTokenStrategy from 'passport-token-facebook';
 
+
+var LocalStrategy = require('passport-local').Strategy;
 var GoogleTokenStrategy = require('passport-google-oauth20').Strategy;
 var FacebookTokenStrategy = require('passport-facebook-token');
 

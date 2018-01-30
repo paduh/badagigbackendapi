@@ -21,9 +21,9 @@ exports.default = {
   "mongoUrl": process.env.MONGODB_URI,
   "bodyLimit": "100kb",
   //"accessKeyId": "AKIAIG7U3J3EOCCV6SHA",
-  "accessKeyId": process.env.S3ACCESSKEYID,
+  "accessKeyId": process.env.accessKeyId,
   //"secretAccessKey": "A33u17Ed9HbzDwp0TV39+LznlIwsBbYYR/JJsP+l",
-  "secretAccessKey": process.env.S3SECRETACCESSKEY,
+  "secretAccessKey": process.env.secretAccessKey,
   "region": "eu-west-2",
   "bucket": "badagigimageupload",
   "expires": "200",
@@ -32,12 +32,12 @@ exports.default = {
   "signatureVersion": "v4",
   "acl": "public-read",
   //"facebookClientID": "275017356352218",
-  "facebookClientID": process.env.FACEBOOKCLIENTID,
+  "facebookClientID": process.env.facebookClientID,
   //  "facebookClientSecret": "4fae403b0b0b5171ec8612fb0d890453",
-  "facebookClientSecret": process.env.FACEBOOKCLIENTSECRET,
+  "facebookClientSecret": process.env.facebookClientSecret,
   //"googleClientID": "322793033087-gojnhheh0rvdretit197u9rsn8dopfgk.apps.googleusercontent.com",
-  "googleClientID": process.env.GOOGLECLIENTID,
+  "googleClientID": process.env.googleClientID,
   //"googleClientSecret": "Ymy5gXvX-7RCoBoYJC2B5n0v"
-  "googleClientSecret": process.env.GOOGLECLIENTSECRET
+  "googleClientSecret": process.env.googleClientSecret
 };
 //# sourceMappingURL=index.js.map
