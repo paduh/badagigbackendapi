@@ -21,9 +21,9 @@ exports.default = {
   "mongoUrl": process.env.MONGODB_URI,
   "bodyLimit": "100kb",
 
-  "accessKeyId": process.env.accessKeyId,
+  "accessKeyId": process.env.S3ACCESSKEYID,
 
-  "secretAccessKey": process.env.secretAccessKey,
+  "secretAccessKey": process.env.S3SECRETACCESSKEY,
   "region": "eu-west-2",
   "bucket": "badagigimageupload",
   "expires": "200",
