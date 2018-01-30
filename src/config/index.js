@@ -8,9 +8,9 @@ export default {
   "mongoUrl": process.env.MONGODB_URI,
   "bodyLimit": "100kb",
 
-  "accessKeyId": process.env.accessKeyId,
+  "accessKeyId": process.env.S3ACCESSKEYID,
 
-  "secretAccessKey": process.env.secretAccessKey,
+  "secretAccessKey": process.env.S3SECRETACCESSKEY,
   "region": "eu-west-2",
   "bucket": "badagigimageupload",
   "expires": "200",
@@ -19,11 +19,11 @@ export default {
   "signatureVersion": "v4",
   "acl": "public-read",
 
-  "facebookClientID": process.env.facebookClientID,
+  "facebookClientID": process.env.FACEBOOKCLIENTID,
 
-  "facebookClientSecret": process.env.facebookClientSecret,
+  "facebookClientSecret": process.env.FACEBOOKCLIENTSECRET,
 
-  "googleClientID": process.env.googleClientID,
+  "googleClientID": process.env.GOOGLECLIENTID,
 
-  "googleClientSecret": process.env.googleClientSecret
+  "googleClientSecret": process.env.GOOGLECLIENTSECRET
 }

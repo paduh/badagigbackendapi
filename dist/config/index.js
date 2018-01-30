@@ -32,12 +32,12 @@ exports.default = {
   "signatureVersion": "v4",
   "acl": "public-read",
 
-  "facebookClientID": process.env.facebookClientID,
+  "facebookClientID": process.env.FACEBOOKCLIENTID,
 
-  "facebookClientSecret": process.env.facebookClientSecret,
+  "facebookClientSecret": process.env.FACEBOOKCLIENTSECRET,
 
-  "googleClientID": process.env.googleClientID,
+  "googleClientID": process.env.GOOGLECLIENTID,
 
-  "googleClientSecret": process.env.googleClientSecret
+  "googleClientSecret": process.env.GOOGLECLIENTSECRET
 };
 //# sourceMappingURL=index.js.map
